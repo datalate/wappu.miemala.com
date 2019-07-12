@@ -1,8 +1,8 @@
 // Documentation: https://github.com/winstonjs/winston
 
-import { createLogger, format, transports } from 'winston';
+import {createLogger, format, transports} from 'winston';
 
-const { File, Console } = transports;
+const {File, Console} = transports;
 
 const wintstonLogger = createLogger({
     level: 'info',

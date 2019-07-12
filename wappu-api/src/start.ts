@@ -1,9 +1,20 @@
 import '../env/loadEnv';
 
-import app from '@server';
-import { logger } from '@shared';
+require('module-alias/register')
+
+import {createServer} from 'http';
+import {app} from './app';
+import {logger} from '@shared';
+import {sequelize} from "./db/sequelize";
 
 const port = Number(process.env.PORT || 3000);
-app.listen(port, () => {
-    logger.info('Express server started on port: ' + port);
-});
+
+(async () => {
+    await sequelize.sync({force: true});
+
+    createServer(app)
+        .listen(
+            port,
+            () => logger.info(`Server running on port ${port}`)
+        );
+})();

@@ -1,6 +1,8 @@
 import '../env/loadEnv';
 
-import { logger } from '@shared';
+require('module-alias/register')
+
+import {logger} from '@shared';
 import find from 'find';
 import Jasmine from 'jasmine';
 

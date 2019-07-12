@@ -3,15 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "build": "node ./util/build.js",
-    "start-prod": "node -r module-alias/register dist/start.js production",
+    "start-prod": "node dist/start.js production",
     "start": "nodemon --config \"./util/nodemon.json\"",
     "test": "nodemon --config \"./util/nodemon.test.json\""
   },
   "_moduleAliases": {
-    "@daos": "dist/daos",
-    "@entities": "dist/entities",
-    "@shared": "dist/shared",
-    "@server": "dist/Server"
+    "@shared": "./src/shared",
+    "@models": "./src/db/models",
+    "@app": "./src"
   },
   "dependencies": {
     "cookie-parser": "^1.4.4",
@@ -20,6 +19,10 @@
     "http-status-codes": "^1.3.2",
     "module-alias": "^2.2.0",
     "morgan": "^1.9.1",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.9.2",
+    "sequelize-typescript": "^1.0.0-beta.3",
+    "sqlite3": "^4.0.9",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -37,6 +40,7 @@
     "jasmine": "^3.4.0",
     "jsonfile": "^5.0.0",
     "nodemon": "^1.19.1",
+    "sequelize-cli": "^5.5.0",
     "supertest": "^4.0.2",
     "ts-node": "^8.3.0",
     "tsconfig-paths": "^3.8.0",
