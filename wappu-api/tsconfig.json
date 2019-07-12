@@ -12,14 +12,6 @@
     "strict": true,
     "target": "es6",
     "moduleResolution": "node",
-    "paths": {
-      "@shared": [
-        "src/shared"
-      ],
-      "@models": [
-        "src/db/models"
-      ]
-    },
     "types": [
       "node"
     ],

@@ -1,10 +1,7 @@
 import '../env/loadEnv';
-
-require('module-alias/register')
-
 import {createServer} from 'http';
 import {app} from './app';
-import {logger} from '@shared';
+import {logger} from './shared'; // TODO: alias?
 import {sequelize} from "./db/sequelize";
 
 const port = Number(process.env.PORT || 3000);

@@ -1,6 +1,6 @@
 import {Router} from 'express';
-import {logger} from '@shared';
-import {Track} from '../../../db/models/Track'; // TODO: alias
+import {logger} from '../../../shared'; // TODO: alias?
+import {Track} from '../../../db/models/Track'; // TODO: alias?
 import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
 import {ValidationError} from 'sequelize';
 

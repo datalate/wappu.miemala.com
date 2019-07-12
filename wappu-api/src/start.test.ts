@@ -1,8 +1,5 @@
 import '../env/loadEnv';
-
-require('module-alias/register')
-
-import {logger} from '@shared';
+import {logger} from './shared'; // TODO: alias?
 import find from 'find';
 import Jasmine from 'jasmine';
 
