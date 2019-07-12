@@ -1,5 +1,4 @@
 import {Sequelize} from 'sequelize-typescript';
-import {Op} from 'sequelize';
 
 // const env = process.env.NODE_ENV || "development";
 // const config = require("/../config.json")[env];
@@ -9,7 +8,6 @@ import {Op} from 'sequelize';
 
 export const sequelize = new Sequelize({
     dialect: 'sqlite',
-    operatorsAliases: Op,
     database: 'wappu-api',
     storage: ':memory:',
     models: [__dirname + '/models']
