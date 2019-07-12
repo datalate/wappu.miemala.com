@@ -20,12 +20,12 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const track = await Track.findOne({where: {id: req.params['id']}});
-        // const track = await Track.findByPk(req.params['id']);
+        const track = await Track.findByPk(req.params['id']);
         if (!track) {
-            return res.status(NOT_FOUND);
+            res.sendStatus(NOT_FOUND);
+        } else {
+            res.json(track);
         }
-        res.json(track);
     } catch (e) {
         logger.error(e.message, e);
         next(e);
@@ -40,17 +40,21 @@ router.post('/', async (req, res) => {
         res.status(CREATED).json(track);
     } catch (e) {
         logger.error(e.message, e);
-        return res.status(BAD_REQUEST);
+        return res.status(BAD_REQUEST); // TODO: check if return doesn't hang here
     }
 });
 
 router.put('/:id', async (req, res) => {
     try {
-        // TODO: check for 404
         // TODO: check for model errors
 
-        await Track.update<Track>(req.body, {where: {id: req.params['id']}});
-        res.sendStatus(NO_CONTENT);
+        let track = await Track.findByPk(req.params['id']);
+        if (!track) {
+            res.sendStatus(NOT_FOUND);
+        } else {
+            await track.update(req.body);
+            res.sendStatus(NO_CONTENT);
+        }
     } catch (e) {
         logger.error(e.message, e);
         return res.status(BAD_REQUEST);
