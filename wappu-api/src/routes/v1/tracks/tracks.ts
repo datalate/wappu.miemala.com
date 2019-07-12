@@ -2,6 +2,7 @@ import {Router} from 'express';
 import {logger} from '@shared';
 import {Track} from '../../../db/models/Track'; // TODO: alias
 import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
+import {ValidationError} from 'sequelize';
 
 const router = Router();
 const path = '/tracks';
@@ -32,22 +33,22 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     try {
-        // TODO: check for model errors
-
         const track = await Track.create(req.body);
         res.status(CREATED).json(track);
     } catch (e) {
-        logger.error(e.message, e);
-        return res.status(BAD_REQUEST); // TODO: check if return doesn't hang here
+        if (e instanceof ValidationError) {
+            res.status(BAD_REQUEST).json({error: e.message});
+        } else {
+            logger.error(e.message, e);
+            next(e);
+        }
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res, next) => {
     try {
-        // TODO: check for model errors
-
         let track = await Track.findByPk(req.params['id']);
         if (!track) {
             res.sendStatus(NOT_FOUND);
@@ -56,8 +57,12 @@ router.put('/:id', async (req, res) => {
             res.sendStatus(NO_CONTENT);
         }
     } catch (e) {
-        logger.error(e.message, e);
-        return res.status(BAD_REQUEST);
+        if (e instanceof ValidationError) {
+            res.status(BAD_REQUEST).json({error: e.message});
+        } else {
+            logger.error(e.message, e);
+            next(e);
+        }
     }
 });
 
