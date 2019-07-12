@@ -61,4 +61,19 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const track = await Track.findByPk(req.params['id']);
+        if (!track) {
+            res.sendStatus(NOT_FOUND);
+        } else {
+            await track.destroy();
+            res.sendStatus(NO_CONTENT);
+        }
+    } catch (e) {
+        logger.error(e.message, e);
+        next(e);
+    }
+});
+
 export default { router, path };
