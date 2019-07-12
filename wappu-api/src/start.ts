@@ -10,7 +10,7 @@ import {sequelize} from "./db/sequelize";
 const port = Number(process.env.PORT || 3000);
 
 (async () => {
-    await sequelize.sync({force: true});
+    await sequelize.sync();
 
     createServer(app)
         .listen(
