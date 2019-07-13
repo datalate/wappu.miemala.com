@@ -5,12 +5,10 @@ import { PlaylistRoutingModule } from './playlist-routing.module';
 
 @NgModule({
   declarations: [
-    PlaylistComponent
+    PlaylistComponent,
   ],
   imports: [
-    PlaylistRoutingModule
-  ],
-  providers: [],
-  bootstrap: []
+    PlaylistRoutingModule,
+  ]
 })
 export class PlaylistModule { }
