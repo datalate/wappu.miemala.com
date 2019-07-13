@@ -2,15 +2,15 @@ import {Router} from 'express';
 import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
 import {Op, ValidationError} from 'sequelize';
 import {Track} from '../../../db/models/Track'; // TODO: alias?
-import {logger} from '../../../shared'; // TODO: alias?
+import {logger, MAX_TIMESTAMP, MIN_TIMESTAMP} from '../../../shared'; // TODO: alias?
 
 const router = Router();
 const path = '/tracks';
 
 router.get('/', async (req, res, next) => {
     try {
-        let startDate = new Date(0);
-        let endDate = new Date(Infinity);
+        let startDate = new Date(MIN_TIMESTAMP);
+        let endDate = new Date(MAX_TIMESTAMP);
         if (typeof req.query.startDate !== 'undefined') {
             startDate = new Date(req.query.startDate);
         }
