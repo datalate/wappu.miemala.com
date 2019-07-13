@@ -1,23 +1,23 @@
-import {Column, CreatedAt, Model, Table, UpdatedAt, AllowNull} from 'sequelize-typescript';
+import {AllowNull, Column, CreatedAt, Model, Table, UpdatedAt} from 'sequelize-typescript';
 
 @Table
 export class Track extends Model<Track> {
     @Column
-    artist!: string;
+    public artist!: string;
 
     @AllowNull(false)
     @Column
-    title!: string;
+    public title!: string;
 
     @AllowNull(false)
     @Column
-    playedAt!: Date;
+    public playedAt!: Date;
 
     @CreatedAt
     @Column
-    createdAt!: Date;
+    public createdAt!: Date;
 
     @UpdatedAt
     @Column
-    updatedAt!: Date;
+    public updatedAt!: Date;
 }

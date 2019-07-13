@@ -1,8 +1,8 @@
 import {Router} from 'express';
-import {logger} from '../../../shared'; // TODO: alias?
-import {Track} from '../../../db/models/Track'; // TODO: alias?
 import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
 import {ValidationError} from 'sequelize';
+import {Track} from '../../../db/models/Track'; // TODO: alias?
+import {logger} from '../../../shared'; // TODO: alias?
 
 const router = Router();
 const path = '/tracks';
@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const track = await Track.findByPk(req.params['id']);
+        const track = await Track.findByPk(req.params.id);
         if (!track) {
             res.sendStatus(NOT_FOUND);
         } else {
@@ -49,7 +49,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try {
-        let track = await Track.findByPk(req.params['id']);
+        const track = await Track.findByPk(req.params.id);
         if (!track) {
             res.sendStatus(NOT_FOUND);
         } else {
@@ -68,7 +68,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const track = await Track.findByPk(req.params['id']);
+        const track = await Track.findByPk(req.params.id);
         if (!track) {
             res.sendStatus(NOT_FOUND);
         } else {

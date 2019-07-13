@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import TrackRouter from './tracks/tracks'
+import TrackRouter from './tracks/tracks';
 
 // TODO: subroute for Programs (performed)
 

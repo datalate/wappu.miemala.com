@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import ApiVersion1Router from './v1/base'
+import ApiVersion1Router from './v1/base';
 
 // Init router and path
 const router = Router();
