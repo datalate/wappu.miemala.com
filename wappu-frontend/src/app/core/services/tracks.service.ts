@@ -13,7 +13,7 @@ export class TracksService {
     private apiService: ApiService
   ) {}
 
-  query(filter: TrackFilter): Observable<Track[]> {
+  query(filter: TrackFilter = {}): Observable<Track[]> {
     // Convert any filters over to Angular's URLSearchParams
     const params = {};
 
@@ -22,24 +22,24 @@ export class TracksService {
         params[key] = filter[key];
       });
 
-    return this.apiService.get(this.routerPath, new HttpParams({ fromObject: params }));
+    return this.apiService.get<Track[]>(this.routerPath, new HttpParams({ fromObject: params }));
   }
 
   get(id: number): Observable<Track> {
-    return this.apiService.get(`${this.routerPath}/${id}`);
+    return this.apiService.get<Track>(`${this.routerPath}/${id}`);
   }
 
   // Should not be allowed
-  delete(id: number) {
+  delete(id: number): Observable<{}> {
     return this.apiService.delete(`${this.routerPath}/${id}`);
   }
 
   // Should not be allowed
   save(track: Track): Observable<Track> {
     if (track.id) {
-      return this.apiService.put(`${this.routerPath}/${track.id}`, track);
+      return this.apiService.put<Track>(`${this.routerPath}/${track.id}`, track);
     } else {
-      return this.apiService.post(this.routerPath, track);
+      return this.apiService.post<Track>(this.routerPath, track);
     }
   }
 }
