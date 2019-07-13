@@ -1,17 +1,27 @@
 import {Router} from 'express';
 import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
-import {ValidationError} from 'sequelize';
+import {Op, ValidationError} from 'sequelize';
 import {Track} from '../../../db/models/Track'; // TODO: alias?
 import {logger} from '../../../shared'; // TODO: alias?
 
 const router = Router();
 const path = '/tracks';
 
-// TODO: query filter for startDate and endDate (compared to playedAt)
-
 router.get('/', async (req, res, next) => {
     try {
-        const tracks = await Track.findAll();
+        let startDate = new Date(0);
+        let endDate = new Date(Infinity);
+        if (typeof req.query.startDate !== 'undefined') {
+            startDate = new Date(req.query.startDate);
+        }
+        if (typeof req.query.endDate !== 'undefined') {
+            endDate = new Date(req.query.endDate);
+        }
+        const tracks = await Track.findAll({
+            where: {
+                playedAt: {[Op.between]: [startDate, endDate]},
+            },
+        });
         res.json(tracks);
     } catch (e) {
         logger.error(e.message, e);
