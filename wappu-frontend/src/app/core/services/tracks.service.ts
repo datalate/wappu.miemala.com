@@ -17,10 +17,14 @@ export class TracksService {
     // Convert any filters over to Angular's URLSearchParams
     const params = {};
 
-    Object.keys(filter)
-      .forEach((key) => {
-        params[key] = filter[key];
-      });
+    /* tslint:disable:no-string-literal */
+    if (filter.startDate) {
+      params['startDate'] = filter.startDate.toISOString();
+    }
+    if (filter.startDate) {
+      params['endDate'] = filter.endDate.toISOString();
+    }
+    /* tslint:enable:no-string-literal */
 
     return this.apiService.get<Track[]>(this.routerPath, new HttpParams({ fromObject: params }));
   }

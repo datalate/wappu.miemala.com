@@ -3,9 +3,9 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'playlist',
-    loadChildren: './playlist/playlist.module#PlayListModule'
-  }
+    path: '',
+    loadChildren: './playlist/playlist.module#PlaylistModule'
+  },
 ];
 
 @NgModule({
