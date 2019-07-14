@@ -1,10 +1,18 @@
 <div>
-  <h3>Playlist</h3>
+  <nav>
+    <a *ngFor="let year of getYears()" routerLink="{{'/' + year.toString()}}">[{{year}}]</a>
+  </nav>
+  <h1>Soitetut</h1>
   <table>
+    <tr>
+      <th>Aika</th>
+      <th>Artisti</th>
+      <th>Kappale</th>
+    </tr>
     <tr *ngFor="let track of tracks">
+      <td>{{track.playedAt | date:'medium'}}</td>
       <td>{{track.artist}}</td>
       <td>{{track.title}}</td>
-      <td>{{track.playedAt | date:'medium'}}</td>
     </tr>
   </table>
 </div>

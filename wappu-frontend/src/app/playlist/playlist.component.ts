@@ -19,8 +19,6 @@ export class PlaylistComponent implements OnInit {
   private tracks: Track[];
 
   ngOnInit(): void {
-    console.log(AVAILABLE_YEARS);
-
     this.route.params.subscribe(params => {
       if (params.year) {
         const parsedYear = parseInt(this.route.snapshot.params.year, 10);
@@ -49,5 +47,9 @@ export class PlaylistComponent implements OnInit {
     } else {
       return a.playedAt.getTime() - b.playedAt.getTime();
     }
+  }
+
+  private getYears(): number[] {
+    return AVAILABLE_YEARS;
   }
 }
