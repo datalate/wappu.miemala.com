@@ -1,0 +1,52 @@
+.program-info {
+  margin: 5px 0;
+  padding: 1px 0;
+}
+
+.program-info.hidden {
+  border-bottom: 3px solid #2d030e;
+}
+
+.program-info h5 {
+  font-family: "Lucida Console", Monaco, monospace;
+  color: #ddd;
+  margin-top: -10px;
+  font-weight: normal;
+}
+
+.program-info:hover {
+  background-color: #440d12;
+  cursor: pointer;
+}
+
+.program-tracks {
+  width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+  white-space: nowrap;
+}
+
+.program-tracks tr, th {
+  padding: 8px;
+}
+
+.program-tracks tr:nth-child(even) {
+  background-color: #33030e;
+}
+
+.program-tracks tr:nth-child(odd) {
+  background-color: #440d12;
+}
+
+.program-tracks td {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 1.05em;
+  padding: 3px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.program-tracks .time {
+  width: 60px;
+}

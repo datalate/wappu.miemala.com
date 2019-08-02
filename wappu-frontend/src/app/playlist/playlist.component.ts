@@ -74,7 +74,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   getTracksForProgram(program: Program): Track[] {
-    if (!program) {
+    if (!program || !this.tracks) {
       return [];
     }
 

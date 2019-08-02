@@ -1,0 +1,18 @@
+.playlist {
+  max-width: 1600px;
+  margin: 0 auto 25px;
+  padding: 0 10px;
+}
+
+.playlist-nav {
+  font-family: "Lucida Console", Monaco, monospace;
+  float: right;
+}
+
+.playlist-nav a {
+  margin: 0 1px;
+}
+
+.playlist-nav a:hover {
+  color: lightgray;
+}

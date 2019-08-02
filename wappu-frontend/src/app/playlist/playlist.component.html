@@ -1,8 +1,11 @@
-<div>
-  <nav>
+<div class="playlist">
+  <nav class="playlist-nav">
     <a *ngFor="let year of getYears()" routerLink="{{'/' + year.toString()}}">[{{year}}]</a>
   </nav>
-  <h1>Soitetut</h1>
+  <h1>Wappuradion soitetut</h1>
+  <p *ngIf="tracks?.length === 0 || programs?.length === 0">
+    Ei näytettäviä kappaleita
+  </p>
   <div *ngFor="let program of programs">
     <app-playlist-program [program]="program" [tracks]="getTracksForProgram(program)"></app-playlist-program>
   </div>

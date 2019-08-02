@@ -8,6 +8,7 @@ import { Track, Program } from '../../core/models';
   styleUrls: ['./program.component.css']
 })
 export class ProgramComponent {
+  @Input() show = true;
   @Input() program: Program;
-  @Input() tracks: Track[];
+  @Input() tracks: Track[] = [];
 }

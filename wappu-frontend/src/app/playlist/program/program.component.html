@@ -1,16 +1,19 @@
 <div>
-  <h3>{{program.title}}</h3>
-  <h4>{{program.startAt | date:'EEEE, MMMM d, HH:mm'}} - {{program.endAt | date:'EEEE, MMMM d, HH:mm'}}</h4>
-  <table>
+  <div class="program-info" [ngClass]="{'hidden': !show}" (click)="show = !show" [title] = "show ? 'Piilota' : 'Näytä'">
+    <h3>{{program.title}}</h3>
+    <h5>{{program.startAt | date:'EEEE, MMMM d, H:mm'}} - {{program.endAt | date:'EEEE, MMMM d, H:mm'}}</h5>
+  </div>
+  <p *ngIf="tracks.length === 0">Ladataan...</p>
+  <table class="program-tracks" *ngIf="tracks.length > 0 && show">
     <tr>
-      <th>Aika</th>
-      <th>Artisti</th>
-      <th>Kappale</th>
+      <th class="time">Aika</th>
+      <th class="artist">Artisti</th>
+      <th class="title">Kappale</th>
     </tr>
     <tr *ngFor="let track of tracks">
-      <td>{{track.playedAt | date:'HH:mm'}}</td>
-      <td>{{track.artist}}</td>
-      <td>{{track.title}}</td>
+      <td class="time" [title]="track.playedAt">{{track.playedAt | date:'HH:mm'}}</td>
+      <td class="artist" [title]="track.artist ? track.artist : 'Ei artistia'">{{track.artist ? track.artist : 'Ei artistia'}}</td>
+      <td class="title" [title]="track.title">{{track.title}}</td>
     </tr>
   </table>
 </div>
