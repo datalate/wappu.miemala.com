@@ -74,6 +74,10 @@ export class PlaylistComponent implements OnInit {
   }
 
   getTracksForProgram(program: Program): Track[] {
-    return this.tracks.filter(track => track.playedAt > program.startAt && track.playedAt < program.endAt);
+    if (!program) {
+      return [];
+    }
+
+    return this.tracks.filter(track => track.playedAt >= program.startAt && track.playedAt < program.endAt);
   }
 }
