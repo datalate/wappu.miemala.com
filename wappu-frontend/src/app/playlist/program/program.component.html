@@ -1,0 +1,16 @@
+<div>
+  <h3>{{program.title}}</h3>
+  <h4>{{program.startAt | date:'EEEE, MMMM d, HH:mm'}} - {{program.endAt | date:'EEEE, MMMM d, HH:mm'}}</h4>
+  <table>
+    <tr>
+      <th>Aika</th>
+      <th>Artisti</th>
+      <th>Kappale</th>
+    </tr>
+    <tr *ngFor="let track of tracks">
+      <td>{{track.playedAt | date:'HH:mm'}}</td>
+      <td>{{track.artist}}</td>
+      <td>{{track.title}}</td>
+    </tr>
+  </table>
+</div>

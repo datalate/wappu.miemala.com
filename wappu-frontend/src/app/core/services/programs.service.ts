@@ -3,17 +3,17 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApiService } from './api.service';
-import { Track, ModelFilter } from '../models';
+import { Program, ModelFilter } from '../models';
 
 @Injectable()
-export class TracksService {
-  readonly routerPath = '/tracks';
+export class ProgramsService {
+  readonly routerPath = '/programs';
 
   constructor(
     private apiService: ApiService
   ) {}
 
-  query(filter: ModelFilter = {}): Observable<Track[]> {
+  query(filter: ModelFilter = {}): Observable<Program[]> {
     // Convert any filters over to Angular's URLSearchParams
     const params = {};
 
@@ -26,11 +26,11 @@ export class TracksService {
     }
     /* tslint:enable:no-string-literal */
 
-    return this.apiService.get<Track[]>(this.routerPath, new HttpParams({ fromObject: params }));
+    return this.apiService.get<Program[]>(this.routerPath, new HttpParams({ fromObject: params }));
   }
 
-  get(id: number): Observable<Track> {
-    return this.apiService.get<Track>(`${this.routerPath}/${id}`);
+  get(id: number): Observable<Program> {
+    return this.apiService.get<Program>(`${this.routerPath}/${id}`);
   }
 
   // Should not be allowed
@@ -39,11 +39,11 @@ export class TracksService {
   }
 
   // Should not be allowed
-  save(track: Track): Observable<Track> {
-    if (track.id) {
-      return this.apiService.put<Track>(`${this.routerPath}/${track.id}`, track);
+  save(program: Program): Observable<Program> {
+    if (program.id) {
+      return this.apiService.put<Program>(`${this.routerPath}/${program.id}`, program);
     } else {
-      return this.apiService.post<Track>(this.routerPath, track);
+      return this.apiService.post<Program>(this.routerPath, program);
     }
   }
 }

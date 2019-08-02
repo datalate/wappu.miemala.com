@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { TracksService } from '../core/services';
-import { Track } from '../core/models';
+import { TracksService, ProgramsService } from '../core/services';
+import { Track, Program } from '../core/models';
 import { AVAILABLE_YEARS } from './shared';
 
 @Component({
@@ -13,10 +13,12 @@ import { AVAILABLE_YEARS } from './shared';
 export class PlaylistComponent implements OnInit {
   constructor(
     private tracksService: TracksService,
+    private programsService: ProgramsService,
     private route: ActivatedRoute
   ) { }
 
   private tracks: Track[];
+  private programs: Program[];
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -30,6 +32,16 @@ export class PlaylistComponent implements OnInit {
   }
 
   private updatePlayed(year: number): void {
+    this.programsService.query(
+      {
+        startDate: new Date(year, 0),
+        endDate: new Date(year + 1, 0)
+      })
+      .toPromise()
+      .then((programs: Program[]) => {
+        this.programs = programs.sort((a, b) => this.sortByStartAt(a, b, false));
+      });
+
     this.tracksService.query(
       {
         startDate: new Date(year, 0),
@@ -49,7 +61,19 @@ export class PlaylistComponent implements OnInit {
     }
   }
 
+  private sortByStartAt(a: Program, b: Program, descending = true): number {
+    if (descending) {
+      return b.startAt.getTime() - a.startAt.getTime();
+    } else {
+      return a.startAt.getTime() - b.startAt.getTime();
+    }
+  }
+
   private getYears(): number[] {
     return AVAILABLE_YEARS;
+  }
+
+  getTracksForProgram(program: Program): Track[] {
+    return this.tracks.filter(track => track.playedAt > program.startAt && track.playedAt < program.endAt);
   }
 }

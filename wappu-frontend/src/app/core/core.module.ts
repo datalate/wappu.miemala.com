@@ -6,7 +6,8 @@ import { JsonDateInterceptor } from './interceptors';
 
 import {
   ApiService,
-  TracksService
+  TracksService,
+  ProgramsService
 } from './services';
 
 @NgModule({
@@ -17,6 +18,7 @@ import {
     { provide: HTTP_INTERCEPTORS, useClass: JsonDateInterceptor, multi: true },
     ApiService,
     TracksService,
+    ProgramsService,
   ]
 })
 export class CoreModule { }
