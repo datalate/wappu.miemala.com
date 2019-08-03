@@ -1019,9 +1019,9 @@ module.exports = {
       'Programs',
       {
         startAt: {[Sequelize.Op.between]: [
-            new Date('2019-01-01T00:00:00+03:00'),
-            new Date('2019-12-31T23:59:59+03:00')
-          ]}
+          new Date('2019-04-18T00:00:00+03:00'),
+          new Date('2019-04-31T23:59:59+03:00')
+        ]}
       },
       {}
     );
