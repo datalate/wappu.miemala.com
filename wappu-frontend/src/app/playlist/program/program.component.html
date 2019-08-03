@@ -3,8 +3,7 @@
     <h3>{{program.title}}</h3>
     <h5>{{program.startAt | date:'EEEE, MMMM d, H:mm'}} - {{program.endAt | date:'EEEE, MMMM d, H:mm'}}</h5>
   </div>
-  <p *ngIf="tracks.length === 0">Ladataan...</p>
-  <table class="program-tracks" *ngIf="tracks.length > 0 && show">
+  <table class="program-tracks" *ngIf="tracks?.length > 0" [ngClass]="{'hidden': !show}">
     <tr>
       <th class="time">Aika</th>
       <th class="artist">Artisti</th>

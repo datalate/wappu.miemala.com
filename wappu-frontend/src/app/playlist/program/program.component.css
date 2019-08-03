@@ -4,7 +4,9 @@
 }
 
 .program-info.hidden {
-  border-bottom: 3px solid #2d030e;
+  border-color: #2d030e;
+  border-width: 0 3px 3px 0;
+  border-style: solid;
 }
 
 .program-info h5 {
@@ -24,6 +26,10 @@
   border-spacing: 0;
   table-layout: fixed;
   white-space: nowrap;
+}
+
+.program-tracks.hidden {
+  display: none;
 }
 
 .program-tracks tr, th {

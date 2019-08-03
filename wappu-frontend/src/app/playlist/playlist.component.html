@@ -2,7 +2,7 @@
   <nav class="playlist-nav">
     <a *ngFor="let year of getYears()" routerLink="{{'/' + year.toString()}}">[{{year}}]</a>
   </nav>
-  <h1>Wappuradion soitetut</h1>
+  <h1 class="title">Wappuradion soitetut</h1>
   <p *ngIf="tracks?.length === 0 || programs?.length === 0">
     Ei näytettäviä kappaleita
   </p>
