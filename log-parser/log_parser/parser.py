@@ -126,6 +126,9 @@ class JSONTrackEncoder(json.JSONEncoder):
 
 
 def db_write(track, conn, table_name):
+    if not track:
+        return
+
     now = datetime.datetime.now(tz=tz)
 
     print('{time:%c}: writing track to database: {track}'.format(time=now, track=track))
@@ -133,14 +136,13 @@ def db_write(track, conn, table_name):
     try:
         with conn:
             conn.execute('INSERT INTO {table} ("artist", "title", "playedAt", "createdAt", "updatedAt")'
-                         'VALUES (:artist, :title, :playedAt, :createdAt, :updatedAt)'
-                         .format(table=table_name),
+                         'VALUES (:artist, :title, :playedAt, :createdAt, :updatedAt)'.format(table=table_name),
                          {
                              "artist": track.artist(),
                              "title": track.title(),
                              "playedAt": track.played_at(),
-                             "createdAt": now.isoformat(),
-                             "updatedAt": now.isoformat()
+                             "createdAt": now,
+                             "updatedAt": now
                          })
     except sqlite3.Error as e:
         print('{time:%c}: transaction failed: {error}'.format(time=now, error=str(e)))
@@ -149,9 +151,12 @@ def db_write(track, conn, table_name):
 
 
 def db_write_many(tracks, conn, table_name):
+    if len(tracks) == 0:
+        return
+
     now = datetime.datetime.now(tz=tz)
-    tracks_data = map(lambda track:
-                      (track.artist(), track.title(), track.played_at(), now.isoformat(), now.isoformat()), tracks)
+    tracks_data = map(lambda track: (
+        track.artist(), track.title(), track.played_at(), now, now), tracks)
 
     print('{time:%c}: writing {num_tracks} tracks to database'.format(time=now, num_tracks=len(tracks)))
 
@@ -163,32 +168,40 @@ def db_write_many(tracks, conn, table_name):
                              tracks_data)
     except sqlite3.Error as e:
         print('{time:%c}: transaction failed: {error}'.format(time=now, error=str(e)))
+    except UnicodeEncodeError as e:
+        print('{time:%c}: encoding failed: {error}'.format(time=now, error=str(e)))
 
 
 def main():
-    argparser = argparse.ArgumentParser(description='IRC log parser for wappu')
+    argparser = argparse.ArgumentParser(description='IRC log parser for wappu', allow_abbrev=False)
     argparser.add_argument(
-        '--input-log', '-i',
+        'input_log',
+        metavar='INPUT_LOG',
+        nargs='?',
         type=argparse.FileType('r', encoding='utf-8', errors='replace'),
         default=sys.stdin,
-        nargs='*',
-        help='the log file to parse - if not given, stdin is used')
+        help='the log file to parse, defaults to stdin')
 
     output_group = argparser.add_mutually_exclusive_group(required=False)
     output_group.add_argument(
         '--json-out', '-o',
         type=argparse.FileType('w', encoding='utf-8', errors='replace'),
-        help='write parsed tracks as JSON')
+        help='output as JSON to the specified file')
     output_group.add_argument(
         '--sqlite-db', '-d',
         type=str,
-        help='SQLite3 database file')
+        help='writes to the database given')
 
     argparser.add_argument(
         '--sqlite-table', '-t',
         type=str,
         default='Tracks',
-        help='SQLite3 table')
+        help='table for SQL, defaults to \'Tracks\'')
+
+    argparser.add_argument(
+        '--immediate', '-i',
+        action='store_true',
+        help='handle every track immediately (not JSON)')
 
     args = argparser.parse_args()
     if not args.input_log:
@@ -199,7 +212,7 @@ def main():
 
     if args.sqlite_db:
         connection = sqlite3.connect(args.sqlite_db)
-        if True:
+        if args.immediate:
             parser.parse_input(args.input_log, db_write, (connection, args.sqlite_table))
         else:
             tracks = parser.parse_input(args.input_log)
@@ -212,4 +225,9 @@ def main():
         result = encoder.encode(tracks)
         args.json_out.write(result)
     else:
-        parser.parse_input(args.input_log, lambda x: print(x))
+        if args.immediate:
+            parser.parse_input(args.input_log, lambda x: print(x))
+        else:
+            tracks = parser.parse_input(args.input_log)
+            for track in tracks:
+                print(track)
