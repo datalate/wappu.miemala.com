@@ -43,52 +43,52 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
-    try {
-        const track = await Track.create(req.body);
-        res.status(CREATED).json(track);
-    } catch (e) {
-        if (e instanceof ValidationError) {
-            res.status(BAD_REQUEST).json({error: e.message});
-        } else {
-            logger.error(e.message, e);
-            next(e);
-        }
-    }
-});
-
-router.put('/:id', async (req, res, next) => {
-    try {
-        const track = await Track.findByPk(req.params.id);
-        if (!track) {
-            res.sendStatus(NOT_FOUND);
-        } else {
-            await track.update(req.body);
-            res.sendStatus(NO_CONTENT);
-        }
-    } catch (e) {
-        if (e instanceof ValidationError) {
-            res.status(BAD_REQUEST).json({error: e.message});
-        } else {
-            logger.error(e.message, e);
-            next(e);
-        }
-    }
-});
-
-router.delete('/:id', async (req, res, next) => {
-    try {
-        const track = await Track.findByPk(req.params.id);
-        if (!track) {
-            res.sendStatus(NOT_FOUND);
-        } else {
-            await track.destroy();
-            res.sendStatus(NO_CONTENT);
-        }
-    } catch (e) {
-        logger.error(e.message, e);
-        next(e);
-    }
-});
+// router.post('/', async (req, res, next) => {
+//     try {
+//         const track = await Track.create(req.body);
+//         res.status(CREATED).json(track);
+//     } catch (e) {
+//         if (e instanceof ValidationError) {
+//             res.status(BAD_REQUEST).json({error: e.message});
+//         } else {
+//             logger.error(e.message, e);
+//             next(e);
+//         }
+//     }
+// });
+//
+// router.put('/:id', async (req, res, next) => {
+//     try {
+//         const track = await Track.findByPk(req.params.id);
+//         if (!track) {
+//             res.sendStatus(NOT_FOUND);
+//         } else {
+//             await track.update(req.body);
+//             res.sendStatus(NO_CONTENT);
+//         }
+//     } catch (e) {
+//         if (e instanceof ValidationError) {
+//             res.status(BAD_REQUEST).json({error: e.message});
+//         } else {
+//             logger.error(e.message, e);
+//             next(e);
+//         }
+//     }
+// });
+//
+// router.delete('/:id', async (req, res, next) => {
+//     try {
+//         const track = await Track.findByPk(req.params.id);
+//         if (!track) {
+//             res.sendStatus(NOT_FOUND);
+//         } else {
+//             await track.destroy();
+//             res.sendStatus(NO_CONTENT);
+//         }
+//     } catch (e) {
+//         logger.error(e.message, e);
+//         next(e);
+//     }
+// });
 
 export default { router, path };
