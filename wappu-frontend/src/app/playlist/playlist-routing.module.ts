@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PlaylistComponent } from './playlist.component';
-import { DEFAULT_YEAR } from './shared';
+import { DEFAULT_RADIO } from './shared';
 
 const routes: Routes = [
   {
-    path: ':year',
+    path: ':radio',
     component: PlaylistComponent,
   },
   {
     path: '**',
-    redirectTo: `${DEFAULT_YEAR.toString()}`,
+    redirectTo: DEFAULT_RADIO.id,
     pathMatch: 'full'
   },
 ];

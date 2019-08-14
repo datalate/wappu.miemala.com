@@ -1,6 +1,6 @@
 <div class="playlist">
   <nav class="playlist-nav">
-    <a *ngFor="let year of getYears()" routerLink="{{'/' + year.toString()}}">[{{year}}]</a>
+    <a *ngFor="let edition of getEditions()" routerLink="{{'/' + edition}}">[{{edition}}]</a>
   </nav>
   <h1 class="title">Wappuradion soitetut</h1>
   <p *ngIf="tracks?.length === 0 || programs?.length === 0">

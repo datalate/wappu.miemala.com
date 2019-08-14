@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { TracksService, ProgramsService } from '../core/services';
-import { Track, Program } from '../core/models';
-import { AVAILABLE_YEARS } from './shared';
+import { Radio, Track, Program } from '../core/models';
+import { RADIO_EDITIONS, DEFAULT_RADIO } from './shared';
 
 @Component({
   selector: 'app-playlist',
@@ -14,28 +14,32 @@ export class PlaylistComponent implements OnInit {
   constructor(
     private tracksService: TracksService,
     private programsService: ProgramsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
-  private tracks: Track[];
-  private programs: Program[];
+  tracks: Track[];
+  programs: Program[];
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if (params.year) {
-        const parsedYear = parseInt(this.route.snapshot.params.year, 10);
-        if (!isNaN(parsedYear)) {
-          this.updatePlayed(parsedYear);
+    this.route.params.subscribe(async params => {
+      if (params.radio) {
+        const radio = RADIO_EDITIONS.find(edition => edition.id === params.radio);
+        if (radio) {
+          this.updatePlayed(radio);
+          return;
         }
       }
+
+      await this.router.navigate([DEFAULT_RADIO.id], {relativeTo: this.route});
     });
   }
 
-  private updatePlayed(year: number): void {
+  private updatePlayed(radio: Radio): void {
     this.programsService.query(
       {
-        startDate: new Date(year, 0),
-        endDate: new Date(year + 1, 0)
+        startDate: radio.startAt,
+        endDate: radio.endAt
       })
       .toPromise()
       .then((programs: Program[]) => {
@@ -44,8 +48,8 @@ export class PlaylistComponent implements OnInit {
 
     this.tracksService.query(
       {
-        startDate: new Date(year, 0),
-        endDate: new Date(year + 1, 0)
+        startDate: radio.startAt,
+        endDate: radio.endAt
       })
       .toPromise()
       .then((tracks: Track[]) => {
@@ -69,8 +73,8 @@ export class PlaylistComponent implements OnInit {
     }
   }
 
-  private getYears(): number[] {
-    return AVAILABLE_YEARS;
+  getEditions(): string[] {
+    return RADIO_EDITIONS.map(radio => radio.id);
   }
 
   getTracksForProgram(program: Program): Track[] {
