@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="tracks?.length > 0">
   <div class="program-info" [ngClass]="{'hidden': !show}" (click)="show = !show" [title] = "show ? 'Piilota' : 'Näytä'">
     <h3>{{program.title}}</h3>
     <h5>{{program.startAt | date:'EEEE, MMMM d, H:mm'}} - {{program.endAt | date:'EEEE, MMMM d, H:mm'}}</h5>

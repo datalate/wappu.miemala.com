@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { TracksService, ProgramsService } from '../core/services';
 import { Radio, Track, Program } from '../core/models';
-import { RADIO_EDITIONS, DEFAULT_RADIO } from './shared';
+import { RADIO_EDITIONS, LATEST_RADIO } from './shared';
 
 @Component({
   selector: 'app-playlist',
@@ -31,7 +31,7 @@ export class PlaylistComponent implements OnInit {
         }
       }
 
-      await this.router.navigate([DEFAULT_RADIO.id], {relativeTo: this.route});
+      await this.router.navigate([LATEST_RADIO], {relativeTo: this.route});
     });
   }
 

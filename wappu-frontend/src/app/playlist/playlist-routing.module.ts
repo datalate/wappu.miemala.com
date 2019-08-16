@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PlaylistComponent } from './playlist.component';
-import { DEFAULT_RADIO } from './shared';
+import { LATEST_RADIO } from './shared';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: DEFAULT_RADIO.id,
+    redirectTo: LATEST_RADIO,
     pathMatch: 'full'
   },
 ];

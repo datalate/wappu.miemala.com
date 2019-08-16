@@ -9,7 +9,4 @@ export const RADIO_EDITIONS: Radio[] = [
   {id: 'assyt', startAt: new Date('2019-08-01T00:00:00+03:00'), endAt: new Date('2019-08-04T23:59:59+03:00')},
 ];
 
-// TODO: compile time default
-
-export const DEFAULT_RADIO = RADIO_EDITIONS.find(radio => radio.id === 'assyt');
-export const DEFAULT = 'assyt';
+export const LATEST_RADIO = 'assyt';
