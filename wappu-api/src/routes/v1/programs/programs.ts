@@ -12,20 +12,20 @@ router.get('/', async (req, res, next) => {
         let startDate = new Date(MIN_TIMESTAMP);
         let endDate = new Date(MAX_TIMESTAMP);
         if (typeof req.query.startDate !== 'undefined') {
-            startDate = new Date(req.query.startDate);
+            startDate = new Date(req.query.startDate.toString());
         }
         if (typeof req.query.endDate !== 'undefined') {
-            endDate = new Date(req.query.endDate);
+            endDate = new Date(req.query.endDate.toString());
         }
         logger.info(`${startDate}, ${endDate}`);
         const programs = await Program.findAll({
             where: {
                 [Op.or]: [ // will not match if filter is only a subset of program start/end date
                     {
-                        startAt: {[Op.between]: [startDate, endDate]},
+                        startAt: {[Op.between]: [startDate.toISOString(), endDate.toISOString()]},
                     },
                     {
-                        endAt: {[Op.between]: [startDate, endDate]},
+                        endAt: {[Op.between]: [startDate.toISOString(), endDate.toISOString()]},
                     },
                 ],
             },

@@ -12,14 +12,14 @@ router.get('/', async (req, res, next) => {
         let startDate = new Date(MIN_TIMESTAMP);
         let endDate = new Date(MAX_TIMESTAMP);
         if (typeof req.query.startDate !== 'undefined') {
-            startDate = new Date(req.query.startDate);
+            startDate = new Date(req.query.startDate.toString());
         }
         if (typeof req.query.endDate !== 'undefined') {
-            endDate = new Date(req.query.endDate);
+            endDate = new Date(req.query.endDate.toString());
         }
         const tracks = await Track.findAll({
             where: {
-                playedAt: {[Op.between]: [startDate, endDate]},
+                playedAt: {[Op.between]: [startDate.toISOString(), endDate.toISOString()]},
             },
         });
         res.json(tracks);
