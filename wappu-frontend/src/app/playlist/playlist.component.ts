@@ -11,6 +11,9 @@ import { RADIO_EDITIONS, LATEST_RADIO } from './shared';
   styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent implements OnInit {
+  public tracks: Track[];
+  public programs: Program[];
+
   constructor(
     private tracksService: TracksService,
     private programsService: ProgramsService,
@@ -18,10 +21,7 @@ export class PlaylistComponent implements OnInit {
     private router: Router
   ) { }
 
-  tracks: Track[];
-  programs: Program[];
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.params.subscribe(async params => {
       if (params.radio) {
         const radio = RADIO_EDITIONS.find(edition => edition.id === params.radio);
@@ -35,9 +35,23 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
+  public getEditions(): string[] {
+    return RADIO_EDITIONS.map(radio => radio.id);
+  }
+
+  public getTracksForProgram(program: Program): Track[] {
+    if (!program || !this.tracks) {
+      return [];
+    }
+
+    return this.tracks.filter(track => track.playedAt >= program.startAt && track.playedAt < program.endAt);
+  }
+
   private updatePlayed(radio: Radio): void {
-    this.programsService.query(
-      {
+    this.programs = null;
+    this.tracks = null;
+
+    this.programsService.query({
         startDate: radio.startAt,
         endDate: radio.endAt
       })
@@ -46,8 +60,7 @@ export class PlaylistComponent implements OnInit {
         this.programs = programs.sort((a, b) => this.sortByStartAt(a, b, false));
       });
 
-    this.tracksService.query(
-      {
+    this.tracksService.query({
         startDate: radio.startAt,
         endDate: radio.endAt
       })
@@ -58,30 +71,14 @@ export class PlaylistComponent implements OnInit {
   }
 
   private sortByPlayedAt(a: Track, b: Track, descending = true): number {
-    if (descending) {
-      return b.playedAt.getTime() - a.playedAt.getTime();
-    } else {
-      return a.playedAt.getTime() - b.playedAt.getTime();
-    }
+    return descending
+      ? b.playedAt.getTime() - a.playedAt.getTime()
+      : a.playedAt.getTime() - b.playedAt.getTime();
   }
 
   private sortByStartAt(a: Program, b: Program, descending = true): number {
-    if (descending) {
-      return b.startAt.getTime() - a.startAt.getTime();
-    } else {
-      return a.startAt.getTime() - b.startAt.getTime();
-    }
-  }
-
-  getEditions(): string[] {
-    return RADIO_EDITIONS.map(radio => radio.id);
-  }
-
-  getTracksForProgram(program: Program): Track[] {
-    if (!program || !this.tracks) {
-      return [];
-    }
-
-    return this.tracks.filter(track => track.playedAt >= program.startAt && track.playedAt < program.endAt);
+    return descending
+      ? b.startAt.getTime() - a.startAt.getTime()
+      : a.startAt.getTime() - b.startAt.getTime();
   }
 }
