@@ -1,8 +1,8 @@
-import {Router} from 'express';
-import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
-import {Op, ValidationError} from 'sequelize';
-import {Program} from '../../../db/models/Program'; // TODO: alias?
-import {logger, MAX_TIMESTAMP, MIN_TIMESTAMP} from '../../../shared'; // TODO: alias?
+import { Router } from 'express';
+import { BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND } from 'http-status-codes';
+import { Op, ValidationError } from 'sequelize';
+import { Program } from '../../../db/models/Program'; // TODO: alias?
+import { logger, MAX_TIMESTAMP, MIN_TIMESTAMP } from '../../../shared'; // TODO: alias?
 
 const router = Router();
 const path = '/programs';
@@ -17,15 +17,15 @@ router.get('/', async (req, res, next) => {
         if (typeof req.query.endDate !== 'undefined') {
             endDate = new Date(req.query.endDate.toString());
         }
-        logger.info(`${startDate}, ${endDate}`);
+        logger.info(`${ startDate }, ${ endDate }`);
         const programs = await Program.findAll({
             where: {
                 [Op.or]: [ // will not match if filter is only a subset of program start/end date
                     {
-                        startAt: {[Op.between]: [startDate.toISOString(), endDate.toISOString()]},
+                        startAt: { [Op.between]: [startDate.toISOString(), endDate.toISOString()] },
                     },
                     {
-                        endAt: {[Op.between]: [startDate.toISOString(), endDate.toISOString()]},
+                        endAt: { [Op.between]: [startDate.toISOString(), endDate.toISOString()] },
                     },
                 ],
             },

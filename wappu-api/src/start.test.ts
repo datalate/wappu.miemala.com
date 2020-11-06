@@ -1,7 +1,7 @@
 import find from 'find';
 import Jasmine from 'jasmine';
 import '../env/loadEnv';
-import {logger} from './shared'; // TODO: alias?
+import { logger } from './shared'; // TODO: alias?
 
 const jasmine = new Jasmine(null);
 

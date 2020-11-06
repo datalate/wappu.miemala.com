@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import ApiVersion1Router from './v1/base';
 
 // Init router and path
@@ -9,4 +9,4 @@ const path = '/api';
 router.use(ApiVersion1Router.path, ApiVersion1Router.router);
 
 // Export the base-router
-export default {router, path};
+export default { router, path };

@@ -1,8 +1,8 @@
-import {Router} from 'express';
-import {BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND} from 'http-status-codes';
-import {Op, ValidationError} from 'sequelize';
-import {Track} from '../../../db/models/Track'; // TODO: alias?
-import {logger, MAX_TIMESTAMP, MIN_TIMESTAMP} from '../../../shared'; // TODO: alias?
+import { Router } from 'express';
+import { BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND } from 'http-status-codes';
+import { Op, ValidationError } from 'sequelize';
+import { Track } from '../../../db/models/Track'; // TODO: alias?
+import { logger, MAX_TIMESTAMP, MIN_TIMESTAMP } from '../../../shared'; // TODO: alias?
 
 const router = Router();
 const path = '/tracks';
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
         }
         const tracks = await Track.findAll({
             where: {
-                playedAt: {[Op.between]: [startDate.toISOString(), endDate.toISOString()]},
+                playedAt: { [Op.between]: [startDate.toISOString(), endDate.toISOString()] },
             },
         });
         res.json(tracks);

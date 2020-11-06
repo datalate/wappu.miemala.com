@@ -3,7 +3,10 @@
   "rules": {
     "member-ordering": false,
     "object-literal-sort-keys": false,
-    "quotemark": [true, "single"]
+    "quotemark": [
+      true,
+      "single"
+    ]
   },
   "linterOptions": {
     "exclude": [

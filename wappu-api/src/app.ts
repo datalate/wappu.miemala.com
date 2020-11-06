@@ -9,7 +9,7 @@ export const app = express();
 // Add middleware/settings/routes to express.
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 

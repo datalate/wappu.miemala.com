@@ -1,4 +1,4 @@
-import {AllowNull, Column, CreatedAt, Model, Table, UpdatedAt} from 'sequelize-typescript';
+import { AllowNull, Column, CreatedAt, Model, Table, UpdatedAt } from 'sequelize-typescript';
 
 @Table
 export class Track extends Model<Track> {

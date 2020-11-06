@@ -1,4 +1,4 @@
-import {Sequelize} from 'sequelize-typescript';
+import { Sequelize } from 'sequelize-typescript';
 
 // const env = process.env.NODE_ENV || "development";
 // const config = require("/../config.json")[env];

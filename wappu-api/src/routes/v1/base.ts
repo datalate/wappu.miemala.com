@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import ProgramRouter from './programs/programs';
 import TrackRouter from './tracks/tracks';
 
@@ -11,4 +11,4 @@ router.use(TrackRouter.path, TrackRouter.router);
 router.use(ProgramRouter.path, ProgramRouter.router);
 
 // Export the base-router
-export default {router, path};
+export default { router, path };

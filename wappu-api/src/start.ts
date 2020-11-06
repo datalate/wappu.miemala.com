@@ -1,8 +1,8 @@
-import {createServer} from 'http';
+import { createServer } from 'http';
 import '../env/loadEnv';
-import {app} from './app';
-import {sequelize} from './db/sequelize';
-import {logger} from './shared'; // TODO: alias?
+import { app } from './app';
+import { sequelize } from './db/sequelize';
+import { logger } from './shared'; // TODO: alias?
 
 const port = Number(process.env.PORT || 3000);
 
@@ -12,5 +12,5 @@ const port = Number(process.env.PORT || 3000);
     createServer(app)
         .listen(
             port,
-            () => logger.info(`Server running on port ${port}`));
+            () => logger.info(`Server running on port ${ port }`));
 })();

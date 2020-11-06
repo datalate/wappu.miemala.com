@@ -1031,10 +1031,12 @@ module.exports = {
     return queryInterface.bulkDelete(
       'Programs',
       {
-        startAt: {[Sequelize.Op.between]: [
+        startAt: {
+          [Sequelize.Op.between]: [
             new Date('2020-04-15T00:00:00+03:00'),
             new Date('2020-04-30T23:59:59+03:00')
-          ]}
+          ]
+        }
       },
       {}
     );
