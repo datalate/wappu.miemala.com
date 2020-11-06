@@ -4,7 +4,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './playlist/playlist.module#PlaylistModule'
+    loadChildren: () => import('./playlist/playlist.module').then(m => m.PlaylistModule)
   },
 ];
 
