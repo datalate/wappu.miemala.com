@@ -19,7 +19,8 @@ export class PlaylistComponent implements OnInit {
     private programsService: ProgramsService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     this.route.params.subscribe(async params => {
@@ -31,7 +32,7 @@ export class PlaylistComponent implements OnInit {
         }
       }
 
-      await this.router.navigate([LATEST_RADIO], {relativeTo: this.route});
+      await this.router.navigate([LATEST_RADIO], { relativeTo: this.route });
     });
   }
 
@@ -52,18 +53,18 @@ export class PlaylistComponent implements OnInit {
     this.tracks = null;
 
     this.programsService.query({
-        startDate: radio.startAt,
-        endDate: radio.endAt
-      })
+      startDate: radio.startAt,
+      endDate: radio.endAt
+    })
       .toPromise()
       .then((programs: Program[]) => {
         this.programs = programs.sort((a, b) => this.sortByStartAt(a, b, false));
       });
 
     this.tracksService.query({
-        startDate: radio.startAt,
-        endDate: radio.endAt
-      })
+      startDate: radio.startAt,
+      endDate: radio.endAt
+    })
       .toPromise()
       .then((tracks: Track[]) => {
         this.tracks = tracks.sort((a, b) => this.sortByPlayedAt(a, b, false));

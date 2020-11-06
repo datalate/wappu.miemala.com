@@ -21,4 +21,5 @@ import {
     ProgramsService,
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+}

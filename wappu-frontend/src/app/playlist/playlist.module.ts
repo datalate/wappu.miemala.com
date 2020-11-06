@@ -15,4 +15,5 @@ import { SharedModule } from '../shared/shared.module';
     PlaylistRoutingModule,
   ]
 })
-export class PlaylistModule { }
+export class PlaylistModule {
+}
