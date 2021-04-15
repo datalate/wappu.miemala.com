@@ -56,3 +56,12 @@
 .program-tracks .time {
   width: 60px;
 }
+
+.time {
+	text-align: right;
+}
+
+.artist,
+.title {
+	text-align: left;
+}
