@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
             },
         });
         res.json(tracks);
-    } catch (e) {
+    } catch (e: any) {
         logger.error(e.message, e);
         next(e);
     }
@@ -37,7 +37,7 @@ router.get('/:id', async (req, res, next) => {
         } else {
             res.json(track);
         }
-    } catch (e) {
+    } catch (e: any) {
         logger.error(e.message, e);
         next(e);
     }
