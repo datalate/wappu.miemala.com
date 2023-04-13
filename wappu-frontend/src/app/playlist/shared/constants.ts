@@ -9,7 +9,8 @@ export const RADIO_EDITIONS: Radio[] = [
   { id: 'assyt', startAt: new Date('2019-08-01T00:00:00+03:00'), endAt: new Date('2019-08-04T23:59:59+03:00') },
   { id: '2020', startAt: new Date('2020-04-15T00:00:00+03:00'), endAt: new Date('2020-04-30T23:59:59+03:00') },
   { id: '2021', startAt: new Date('2021-04-15T00:00:00+03:00'), endAt: new Date('2021-04-30T23:59:59+03:00') },
-  { id: '2022', startAt: new Date('2022-04-13T00:00:00+03:00'), endAt: new Date('2022-04-30T23:59:59+03:00') }
+  { id: '2022', startAt: new Date('2022-04-13T00:00:00+03:00'), endAt: new Date('2022-04-30T23:59:59+03:00') },
+  { id: '2023', startAt: new Date('2023-04-13T00:00:00+03:00'), endAt: new Date('2023-04-30T23:59:59+03:00') }
 ];
 
-export const LATEST_RADIO = '2022';
+export const LATEST_RADIO = '2023';
