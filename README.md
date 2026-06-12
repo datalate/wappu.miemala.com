@@ -1,3 +1,11 @@
+> [!WARNING]
+> **This repository is deprecated and no longer being maintained**
+>
+> Development has moved to two new repositories:
+>
+> - [Frontend](https://github.com/datalate/wappu-frontend)
+> - [Backend](https://github.com/datalate/wappu-api)
+
 # wappu.miemala.com
 Live timetable for Wappuradio
 
