@@ -37,7 +37,7 @@
     "fs-extra": "10.0.1",
     "jasmine": "4.1.0",
     "jsonfile": "6.1.0",
-    "nodemon": "2.0.15",
+    "nodemon": "2.0.20",
     "sequelize-cli": "6.4.1",
     "supertest": "6.2.2",
     "ts-node": "10.7.0",
